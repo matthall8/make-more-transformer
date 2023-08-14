@@ -82,7 +82,7 @@ class MatTransformer(nn.Module):
         add_layer_01 = emb + single_head_attention_01
         layer_norm_01 = self.norm_layer_01(add_layer_01)
         # second transformer block
-        single_head_attention_02 = self.single_head_attention_layer_02(emb, masked=False)
+        single_head_attention_02 = self.single_head_attention_layer_02(layer_norm_01, masked=True)
         add_layer_02 = layer_norm_01 + single_head_attention_02
         layer_norm_02 = self.norm_layer_02(add_layer_02)
         # feed forward 
@@ -91,8 +91,7 @@ class MatTransformer(nn.Module):
         layer_norm_03 = self.norm_layer_03(add_layer_03)
         # linear output layer
         output_linear_layer = self.output_linear_layer(layer_norm_03)
-        output_softmax = F.softmax(output_linear_layer, 2)
-        return output_softmax
+        return output_linear_layer
 
     def get_positional_encoding(self, max_len, d_model):
         pos_enc = torch.zeros(max_len, d_model)

@@ -4,9 +4,11 @@ import torch.backends.cudnn as cudnn
 from dataset import NameDataset
 from model import MatTransformer
 from torch.nn.utils.rnn import pad_sequence
+
 #%%
 names = open('names.txt', 'r').read().splitlines()
 len(names)
+torch.manual_seed(42)
 #%%
 def collate_fn(batch):
     source, target = zip(*batch)

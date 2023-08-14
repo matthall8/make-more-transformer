@@ -4,6 +4,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import matplotlib.pyplot as plt
 import numpy as np
+
 #%%
 class NameDataset(torch.utils.data.Dataset):
     def __init__(self, name_list):
